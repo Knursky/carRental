@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Connector {
-    static final String DB_URL = "jdbc:postgresql://localhost:5432/carRental";
-    static final String USER = "postgres";
-    static final String PASS = "sela1234";
+    static final String DB_URL = "jdbc:postgresql://kandula.db.elephantsql.com/qvmxfwsr";
+
+    static final String USER = "qvmxfwsr";
+    static final String PASS = "NPTV7f5ZFmtvbuHfEpCvIedGwgPAf0SQ";
 
     public static void connect() throws SQLException {
         Properties props = new Properties();

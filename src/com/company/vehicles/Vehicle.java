@@ -9,6 +9,8 @@ public class Vehicle {
     private long mileage;
     private String segment;
     private double value;
+
+
     private int id;
 
 
@@ -29,6 +31,9 @@ public class Vehicle {
         this.value = value;
         this.id = id;
     }
+    public int getId() {
+        return id;
+    }
 
     public Vehicle() {
         carPartsList = new ArrayList<>(List.of(
@@ -42,6 +47,9 @@ public class Vehicle {
 
     public double getValue() {
         return value;
+    }
+    public void setValue(double value) {
+        this.value = value;
     }
 
     public void upValue(double value) {
@@ -72,9 +80,7 @@ public class Vehicle {
         if (value > 0)
             this.value -= value;
     }
-    public void setValue(double value) {
-        this.value = value;
-    }
+
 
     public String getBrand() {
         return brand;

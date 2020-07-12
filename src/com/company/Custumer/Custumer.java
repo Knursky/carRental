@@ -24,6 +24,9 @@ public class Custumer {
         this.money = money;
     }
 
+    public boolean isBuyDamaged() {
+        return buyDamaged;
+    }
     public Custumer() {
 
     }

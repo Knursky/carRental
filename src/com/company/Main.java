@@ -17,18 +17,22 @@ import java.util.stream.Collectors;
 
     public class Main {
         static Scanner scanner = new Scanner(System.in);
+
         static List<Vehicle> vehicleList;
         static List<Vehicle> vehicleSelected;
         static List<Custumer> allCustumers;
 
+
         public static void main(String[] args) throws SQLException {
+           JDBCConnector.connect();
+         /*  JDBCConnector.saveCarsToDB();
+            JDBCConnector.CustumersDB();*/
             vehicleList = getAllVehicles();
             allCustumers = getAllCustumers();
-            //Add five vehicles from all
-            vehicleSelected = new ArrayList<>(vehicleList.subList(0, 2));
-            //Remove the added vehicles from the set of all vehicles
+            vehicleSelected = new ArrayList<>(vehicleList);
             vehicleList.removeAll(vehicleSelected);
-            
+
+            System.out.println("Enter starting money");
             double beginningCash = 0.0;
             while (true) {
                 try {
@@ -78,8 +82,7 @@ import java.util.stream.Collectors;
                     makeRepairs(player);
                     break;
                 case 5:
-                    System.out.println("Some of your custumers are interested in passenger vehicles, the others prefer trucks." +
-                            " Every custumer has a certain amount of cash likes some brands and look for vehicle from one segment.");
+                    System.out.println("Custumers");
                     allCustumers.forEach(System.out::println);
                     break;
                 case 6:
@@ -231,11 +234,11 @@ import java.util.stream.Collectors;
                 ResultSet rs = JDBCConnector.getDataFromTable(sql);
                 while (rs.next()) {
                     Vehicle tempVehicle = new Vehicle();
-                    tempVehicle.setValue(rs.getDouble(1));
-                    tempVehicle.setBrand(rs.getString(2));
+                    tempVehicle.setBrand(rs.getString(1));
+                    tempVehicle.setColor(rs.getString(2));
                     tempVehicle.setMileage(rs.getLong(3));
-                    tempVehicle.setColor(rs.getString(4));
-                    tempVehicle.setSegment(rs.getString(5));
+                    tempVehicle.setSegment(rs.getString(4));
+                    tempVehicle.setValue(rs.getDouble(5));
                     tempVehicle.setId(rs.getInt(6));
                     vehicles.add(tempVehicle);
                 }
@@ -255,11 +258,12 @@ import java.util.stream.Collectors;
                     Custumer custumer = new Custumer();
                     custumer.setId(rs.getInt(1));
                     custumer.setName(rs.getString(2));
-                    custumer.setVehicle((String[]) rs.getArray(3).getArray());
-                    custumer.setBrands((String[]) rs.getArray(4).getArray());
-                    custumer.setBuyDamaged(rs.getBoolean(5));
-                    custumer.setSegment((String[]) rs.getArray(6).getArray());
-                    custumer.setMoney(rs.getDouble(7));
+                    custumer.setSurname(rs.getString(3));
+                    custumer.setVehicle((String[]) rs.getArray(4).getArray());
+                    custumer.setBrands((String[]) rs.getArray(5).getArray());
+                    custumer.setBuyDamaged(rs.getBoolean(6));
+                    custumer.setSegment((String[]) rs.getArray(7).getArray());
+                    custumer.setMoney(rs.getDouble(8));
                     custumers.add(custumer);
                 }
             } catch (SQLException e) {
